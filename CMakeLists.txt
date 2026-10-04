@@ -70,13 +70,13 @@ install(FILES "$<TARGET_PDB_FILE:HeapPatch>" DESTINATION svencoop/metahook/plugi
 # heappatch). The manifest lists those symbols; the synchronizer downloads the
 # upstream catalog into a persistent cache, prunes it, and publishes the result.
 option(HEAPPATCH_SYNC_GAMEDATA "Download and prune HeapPatch's gamedata catalog before building" ON)
-set(HEAPPATCH_GAMEDATA_DIR "${CMAKE_BINARY_DIR}/assets/svencoop/metahook/gamedata/heappatch" CACHE PATH "HeapPatch gamedata catalog directory")
+set(HEAPPATCH_GAMEDATA_DIR "${PROJECT_BINARY_DIR}/assets/svencoop/metahook/gamedata/heappatch" CACHE PATH "HeapPatch gamedata catalog directory")
 if(HEAPPATCH_SYNC_GAMEDATA)
     find_package(Python3 REQUIRED COMPONENTS Interpreter)
     add_custom_target(HeapGameData
         COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/scripts/sync-gamedata.py"
             --manifest "${CMAKE_CURRENT_SOURCE_DIR}/scripts/manifests/heappatch.json"
-            --target-dir "${HEAPPATCH_GAMEDATA_DIR}" --temp-root "${CMAKE_BINARY_DIR}/gamedata-sync"
+            --target-dir "${HEAPPATCH_GAMEDATA_DIR}" --temp-root "${PROJECT_BINARY_DIR}/gamedata-sync"
         COMMENT "Synchronizing and validating HeapPatch gamedata"
         VERBATIM
     )
