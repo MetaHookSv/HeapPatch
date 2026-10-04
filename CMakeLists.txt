@@ -90,3 +90,12 @@ if(HEAPPATCH_SYNC_GAMEDATA)
     add_dependencies(HeapPatch HeapGameDataValidate)
 endif()
 install(DIRECTORY "${HEAPPATCH_GAMEDATA_DIR}/" DESTINATION svencoop/metahook/gamedata/heappatch OPTIONAL)
+
+# The aggregate solution owns its single LaunchGame target.
+if(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
+    option(METAHOOKSV_ENABLE_LAUNCH_GAME "Add the Visual Studio build/deploy/debug target" OFF)
+    if(METAHOOKSV_ENABLE_LAUNCH_GAME)
+        include(cmake/LaunchGame.cmake)
+        metahooksv_add_launch_game()
+    endif()
+endif()
