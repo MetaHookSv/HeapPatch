@@ -46,7 +46,7 @@ Requirements: Windows, Visual Studio 2022, CMake 3.21 or newer, Python 3.8 or ne
 
 3. Copy `HeapPatch.dll` and `gamedata\heappatch` into `svencoop/metahook`, as described in Install.
 
-The MetaHook SDK is fetched automatically at a pinned commit. To build against a local MetaHook source tree instead, pass it on the command line or export the same environment variable before configuring:
+The MetaHook SDK is fetched automatically from the latest `main`. To build against a local MetaHook source tree instead, pass it on the command line or export the same environment variable before configuring:
 
 ```
 scripts\build-HeapPatch-x86-Release.bat -DMETAHOOK_SOURCE_PATH=D:\MetaHook

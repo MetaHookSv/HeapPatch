@@ -108,7 +108,7 @@ The scripts configure, build and install. Debug compiles at `/W0`, Release at `/
 
 ### Dependencies
 
-- **MetaHook SDK**: fetched automatically at a pinned commit; pass `-DMETAHOOK_SOURCE_PATH=D:\MetaHook` or export the same environment variable to build against a local tree. The path is the repository root providing `include/metahook.h`, `include/HLSDK`, `include/Interface` and `include/SourceSDK`
+- **MetaHook SDK**: fetched automatically from the latest `main`; pass `-DMETAHOOK_SOURCE_PATH=D:\MetaHook` or export the same environment variable to build against a local tree. The path is the repository root providing `include/metahook.h`, `include/HLSDK`, `include/Interface` and `include/SourceSDK`
 - **Capstone headers**: consumed through the MetaHook API for instruction parsing (`cs_insn`, `X86_INS_MOV` / `X86_INS_CMP`, `x86.encoding`). **Capstone is not linked**, so `CAPSTONE_LIBRARY_DIRS` is ignored. Headers resolve from `CAPSTONE_INCLUDE_DIRS`, else the MetaHook tree's `thirdparty/capstone_fork`, else a pinned commit
 - **VC-LTL 5.3.1**: downloaded once into `thirdparty/cache`
 - **No third-party library is linked.** MetaHook and Capstone are read-only build inputs
