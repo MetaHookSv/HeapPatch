@@ -164,20 +164,6 @@ Runtime configuration: `HeapPatch.dll` must be listed in the host's `metahook/co
 2. **Breakpoint locations**: `Engine_FillAddress()` (resolution), `FindHeapLimitImmediate()` (decode), `Engine_InstallHooks()` (the `WriteDWORD` loop)
 3. **Verify the write**: the PATCH address is the *instruction* address. The DWORD is written at `instruction + imm_offset`, so inspect that address, not the one printed by `Sys_Error`
 
-## FAQ
-
-### Q: Why does a missing index-0 record abort instead of doing nothing?
-A: Patches come from gamedata only. A missing or unlistable patch set means the heap limit would silently stay at the broken default, so `Failed to resolve "Sys_InitMemory_HeapLimitPatches_0"` (with CRC64, buildnum and status) is raised instead.
-
-### Q: Why is Capstone a header-only dependency?
-A: Disassembly is used only to locate the immediate field inside an already-resolved instruction. That needs decoding, not a full disassembler, so the plugin uses Capstone through the MetaHook API and links nothing.
-
-### Q: What happens to the original immediates at shutdown?
-A: Nothing. `Engine_UninstallHooks` is empty; the patch is one-time and takes effect immediately after `LoadEngine`.
-
-### Q: Does a successful build prove the patch works?
-A: No. There is no test suite here, so a green configure/build says nothing about whether a patch site resolves or the heap limit actually increases at runtime. Claims about in-game behavior require evidence from a real game run. Documentation changes need content, path and format checks, not a plugin rebuild.
-
 ## Repository Rules
 
 - Preserve the MetaHook API, plugin exports and calling conventions. Match the naming, indentation and comment style of the files you touch
