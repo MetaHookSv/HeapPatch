@@ -8,28 +8,16 @@ This file provides guidance and important rules working with code in this reposi
   information in the Basic Memory knowledge base first, and only locate/read specific files or
   symbols when necessary, instead of expanding a large amount of context at once.
 
-#### Basic Memory knowledge base (project-scoped, `memory/`)
+### Basic Memory knowledge base (project-scoped, `memory/`)
 
 - Notes live in `memory/` (markdown with YAML frontmatter: `title`/`type`/`permalink`), tracked in git.
-- This repository contains the standalone HeapPatch plugin, extracted from MetaHookSv
-  `Plugins/HeapPatch`. Its notes were migrated from MetaHookSv and adapted to the CMake workspace; see
-  `memory/project_overview.md` for scope and provenance.
-- Basic Memory is registered as MCP server `basic-memory`, pinned to the `heappatch` project
-  (project-level `.mcp.json`, mirrored by `.codex/config.toml`). The `metahooksv` project belongs to
-  the source repository.
-- Prefer Basic Memory MCP tools (`search_notes` / `read_note` / `write_note` / `edit_note`) only when
-  their project resolves to this repository's `memory/` directory. Verify the project binding before
-  writing; when no matching project is available, read and edit the local markdown files directly.
 - Notes use the `heappatch/` permalink prefix to distinguish them from the source repository.
-- Historical records are not current evidence: the migrated note retains MetaHookSv paths and refers
-  to `src/metahook.cpp`, which belongs to the host loader, not to this repository. Do not extend an
-  old statement to a new change without checking the code.
 
-#### High-level information in this repository (read corresponding notes first)
+### High-level information in this repository (read corresponding notes first)
 
 - Project overview, provenance, patch pipeline and dependency boundaries: `project_overview`
 
-#### When notes are insufficient: source entry points (query and read on demand)
+### When notes are insufficient: source entry points (query and read on demand)
 
 - Build: `CMakeLists.txt`, `cmake/Sources.cmake` (explicit compile list), `cmake/Dependencies.cmake`
   (source-path resolution and FetchContent fallback), `cmake/VCLTL.cmake`,
@@ -52,13 +40,6 @@ This file provides guidance and important rules working with code in this reposi
 - Build output: `build/x86/<configuration>/`; install output: `install/x86/<configuration>/`. Neither
   is tracked, and nothing is deployed to the game automatically
 
-#### Progressive disclosure key points
-
-- Read notes first, then locate a single file/symbol; do not read the whole repository at once.
-- Prefer correctly scoped Basic Memory MCP tools for knowledge retrieval; otherwise use the local
-  notes before reading source.
-- Prefer Context7 for external dependency/library usage (query on demand).
-
 ## Repository rules
 
 - Preserve the MetaHook API, plugin exports and calling conventions. Match the naming, indentation and
@@ -79,8 +60,3 @@ This file provides guidance and important rules working with code in this reposi
   successful configure/build says nothing about whether a patch site resolves or the heap limit
   actually increases at runtime. Claims about in-game behavior must not be made without evidence.
   Documentation changes need content, path and format checks, not a plugin rebuild.
-
-## Explore SKILLs
-
-- Project-level skills, when present, live in `.claude/skills` no matter what harness tool is being
-  used.
