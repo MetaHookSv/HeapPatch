@@ -6,7 +6,7 @@ The engine's `Sys_InitMemory` caps its memory pool at a hard-coded limit that is
 
 # Install
 
-1. Download and install [MetaHookSv](https://github.com/hzqst/MetaHookSv).
+1. Download and install [MetaHookSv](https://github.com/MetaHookSv/MetaHookSv).
 
 2. Build or download .dll, put it into `/SteamLibrary/steamapps/common/Sven Co-op/svencoop/metahook/plugins` directory.
 

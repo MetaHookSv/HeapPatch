@@ -174,6 +174,6 @@ Runtime configuration: `HeapPatch.dll` must be listed in the host's `metahook/co
 
 ## Related Links
 
-- **MetaHookSV**: https://github.com/hzqst/MetaHookSv
+- **MetaHookSV**: https://github.com/MetaHookSv/MetaHookSv
 - **Capstone**: https://www.capstone-engine.org/
 - **Gamedata symbol catalog**: https://hlnd2t.github.io/GoldSrc_VibeSignatures/
