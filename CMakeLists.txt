@@ -58,7 +58,9 @@ target_compile_options(heappatch_settings INTERFACE /permissive
     $<$<CONFIG:Release>:/wd4996>)
 
 include(cmake/Sources.cmake)
+include(cmake/SourceGroups.cmake)
 add_library(HeapPatch SHARED ${HEAPPATCH_SOURCES})
+heappatch_assign_source_groups(HeapPatch)
 target_link_libraries(HeapPatch PRIVATE heappatch_settings)
 target_compile_options(HeapPatch PRIVATE /MP /Zi)
 target_link_options(HeapPatch PRIVATE /DEBUG
