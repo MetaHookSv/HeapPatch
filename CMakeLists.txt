@@ -81,21 +81,21 @@ option(HEAPPATCH_SYNC_GAMEDATA "Download and prune HeapPatch's gamedata catalog 
 set(HEAPPATCH_GAMEDATA_DIR "${PROJECT_BINARY_DIR}/assets/svencoop/metahook/gamedata/heappatch" CACHE PATH "HeapPatch gamedata catalog directory")
 if(HEAPPATCH_SYNC_GAMEDATA)
     find_package(Python3 REQUIRED COMPONENTS Interpreter)
-    add_custom_target(HeapGameData
+    add_custom_target(HeapPatchGameData
         COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/scripts/sync-gamedata.py"
             --manifest "${CMAKE_CURRENT_SOURCE_DIR}/scripts/manifests/heappatch.json"
             --target-dir "${HEAPPATCH_GAMEDATA_DIR}" --temp-root "${PROJECT_BINARY_DIR}/gamedata-sync"
         COMMENT "Synchronizing and validating HeapPatch gamedata"
         VERBATIM
     )
-    add_custom_target(HeapGameDataValidate
+    add_custom_target(HeapPatchGameDataValidate
         COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/scripts/validate-gamedata.py"
             "${HEAPPATCH_GAMEDATA_DIR}" --manifest "${CMAKE_CURRENT_SOURCE_DIR}/scripts/manifests/heappatch.json"
         COMMENT "Validating HeapPatch gamedata against the manifest"
         VERBATIM
     )
-    add_dependencies(HeapGameDataValidate HeapGameData)
-    add_dependencies(HeapPatch HeapGameDataValidate)
+    add_dependencies(HeapPatchGameDataValidate HeapPatchGameData)
+    add_dependencies(HeapPatch HeapPatchGameDataValidate)
 endif()
 install(DIRECTORY "${HEAPPATCH_GAMEDATA_DIR}/" DESTINATION svencoop/metahook/gamedata/heappatch OPTIONAL)
 
