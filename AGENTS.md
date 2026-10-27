@@ -25,14 +25,12 @@ HeapPatch/
 ├── cmake/
 │   ├── Sources.cmake          # Explicit compile list
 │   ├── Dependencies.cmake     # Source-path resolution and FetchContent fallback
-│   ├── LaunchGame.cmake       # Optional F5 deploy support
-│   └── VCLTL.cmake            # VC-LTL 5.3.1
+│   └── LaunchGame.cmake       # Optional F5 deploy support
 ├── scripts/
 │   ├── build-HeapPatch-x86-{Debug,Release}.bat
 │   ├── manifests/heappatch.json   # Gamedata manifest (patch symbol + numberedPatchSets)
 │   ├── sync-gamedata.py           # Prunes the upstream catalog into the build tree
 │   └── validate-gamedata.py       # Validates it before the plugin target builds
-├── thirdparty/cache/          # Ignored VC-LTL binary cache
 ├── build/x86/<configuration>/    # Ignored build output
 ├── install/x86/<configuration>/  # Ignored install output
 └── CMakeLists.txt             # Windows MSVC x86 build and install rules
@@ -97,7 +95,7 @@ WriteDWORD at instruction + imm_offset
 
 ## Build Instructions
 
-Requirements: Windows, Visual Studio 2022, CMake 3.21 or newer, Python 3.8 or newer, MSVC x86 (`-A Win32`), static CRT and VC-LTL 5.3.1.
+Requirements: Windows, Visual Studio 2022, CMake 3.21 or newer, Python 3.8 or newer, MSVC x86 (`-A Win32`), static CRT.
 
 ```bat
 scripts\build-HeapPatch-x86-Release.bat
@@ -110,7 +108,6 @@ The scripts configure, build and install. Debug compiles at `/W0`, Release at `/
 
 - **MetaHook SDK**: fetched automatically from the latest `main`; pass `-DMETAHOOK_SOURCE_PATH=D:\MetaHook` or export the same environment variable to build against a local tree. The path is the repository root providing `include/metahook.h`, `include/HLSDK`, `include/Interface` and `include/SourceSDK`
 - **Capstone headers**: consumed through the MetaHook API for instruction parsing (`cs_insn`, `X86_INS_MOV` / `X86_INS_CMP`, `x86.encoding`). **Capstone is not linked**, so `CAPSTONE_LIBRARY_DIRS` is ignored. Headers resolve from `CAPSTONE_INCLUDE_DIRS`, else the MetaHook tree's `thirdparty/capstone_fork`, else a pinned commit
-- **VC-LTL 5.3.1**: downloaded once into `thirdparty/cache`
 - **No third-party library is linked.** MetaHook and Capstone are read-only build inputs
 
 Keep `cmake/Sources.cmake` as the explicit compile list; `include/HLSDK/common/interface.cpp` is compiled in because `EXPOSE_SINGLE_INTERFACE` (which exports `CreateInterface`) lives there.
@@ -170,7 +167,7 @@ Runtime configuration: `HeapPatch.dll` must be listed in the host's `metahook/co
 - Patch sites come only from gamedata and the host gamedata contract. **Do not** reintroduce signature search, hard-coded patch counts, fixed offsets or old-immediate matching; disassembly may only locate the immediate field inside an already-resolved instruction. When the gamedata pipeline is impossible, fail loudly (as `Sys_Error` does today) instead of adding a fallback
 - Keep the `static_assert(METAHOOK_API_VERSION >= 110)` guard in sync with the APIs actually used
 - Do not modify external or third-party sources; MetaHook and Capstone are read-only build inputs
-- MSVC x86 only. Keep the static CRT / VC-LTL and warning-level settings in `CMakeLists.txt` in sync with the other standalone plugin repositories
+- MSVC x86 only. Keep the static CRT and warning-level settings in `CMakeLists.txt` in sync with the other standalone plugin repositories
 
 ## C/C++ formatting
 

@@ -22,8 +22,6 @@ endif()
 include(cmake/Dependencies.cmake)
 heappatch_prepare_dependencies()
 
-include("${VC_LTL_Root}/VC-LTL helper for cmake.cmake")
-
 # Include directories follow HeapPatch.vcxproj; only the SDK headers are needed,
 # and the plugin links no third-party library.
 add_library(heappatch_settings INTERFACE)

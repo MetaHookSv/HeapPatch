@@ -38,7 +38,7 @@ The shared module uses `METAHOOKSV_LAUNCH_GAME_MODULE_DIR`, the surrounding Meta
 
 # Build
 
-Requirements: Windows, Visual Studio 2022, CMake 3.21 or newer, Python 3.8 or newer. The first configure downloads VC-LTL 5.3.1 into `thirdparty/cache` and synchronizes the gamedata catalog.
+Requirements: Windows, Visual Studio 2022, CMake 3.21 or newer, Python 3.8 or newer. The first configure synchronizes the gamedata catalog.
 
 1. Run `scripts\build-HeapPatch-x86-Release.bat` (or `scripts\build-HeapPatch-x86-Debug.bat`).
 

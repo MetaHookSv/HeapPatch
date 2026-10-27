@@ -1,5 +1,3 @@
-set(HEAPPATCH_DEPENDENCY_CACHE_DIR "${PROJECT_SOURCE_DIR}/thirdparty/cache" CACHE PATH "Downloaded dependency cache")
-set(VC_LTL_Root "${HEAPPATCH_DEPENDENCY_CACHE_DIR}/VC-LTL-5.3.1" CACHE PATH "VC-LTL binary package root")
 set(METAHOOK_SOURCE_PATH "$ENV{METAHOOK_SOURCE_PATH}" CACHE PATH "MetaHook source tree; empty fetches the pinned SDK")
 set(CAPSTONE_INCLUDE_DIRS "$ENV{CAPSTONE_INCLUDE_DIRS}" CACHE STRING "External Capstone include directories; empty prefers MetaHook's own capstone fork and otherwise fetches the pinned commit")
 
@@ -83,13 +81,11 @@ function(heappatch_prepare_dependencies)
         else()
             heappatch_fetch_source(heappatch_capstone
                 "https://github.com/hzqst/capstone"
-                "e81e390f621ee59d14f70e16fe065dd00f78ee71" capstone_source)
+                "9e27c51c2485dd37dd3917919ae781c6153f3688" capstone_source)
             set(capstone_includes "${capstone_source}/include/capstone")
         endif()
     endif()
     set(HEAPPATCH_CAPSTONE_INCLUDE_DIRS "${capstone_includes}" PARENT_SCOPE)
     message(STATUS "Capstone headers: ${capstone_includes}")
 
-    include("${CMAKE_CURRENT_FUNCTION_LIST_DIR}/VCLTL.cmake")
-    heappatch_prepare_vcltl()
 endfunction()
